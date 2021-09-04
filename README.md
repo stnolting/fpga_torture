@@ -38,7 +38,7 @@ and dynamic power consumption.
 
 ### Top Entity
 
-The top entity is [`fpga_torture.vhd`](https://raw.githubusercontent.com/stnolting/fpga_torture/main/rtl/fpga_torture.vhd).
+The top entity is [`fpga_torture.vhd`](https://github.com/stnolting/fpga_torture/blob/main/rtl/fpga_torture.vhd).
 
 ```vhdl
 entity fpga_torture is
@@ -61,8 +61,8 @@ FPGA output pin like a LED or an unconnected FPGA pin.
 ### Simulation
 
 The projects provides a simple testbench
-([`sim/fpga_torture_tb.vhd`](https://raw.githubusercontent.com/stnolting/fpga_torture/main/sim/fpga_torture_tb.vhd)), which
-can be simulated by GHDL via the provides script ([`sim/ghdl.sh`](https://raw.githubusercontent.com/stnolting/fpga_torture/main/sim/ghdl.sh):
+([`sim/fpga_torture_tb.vhd`](https://github.com/stnolting/fpga_torture/blob/main/sim/fpga_torture_tb.vhd)), which
+can be simulated by GHDL via the provides script ([`sim/ghdl.sh`](https://github.com/stnolting/fpga_torture/blob/main/sim/ghdl.sh):
 
 ```
 fpga_torture/sim$ sh ghdl.sh
