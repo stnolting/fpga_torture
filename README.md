@@ -16,7 +16,7 @@ primitives, attributes or other device/platform-specific things. Tested on Latti
 (Radiant, SinplifyPro) and Intel (Quartus Prime) FPGAs.
 
 **:warning: BEWARE! This setup might cause permanent damage of your FPGA/board if over-current
-and over-temperature protection are insufficient!**
+and over-temperature protections are insufficient!**
 
 
 ## How does it work?
