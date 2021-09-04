@@ -24,7 +24,8 @@ consists of a FF and a LUT. The LUT uses the input from the three previous FFs t
 
 `chain(i) = chain_(i-1) xor chain(i-2) xor chain(i-2)` (`chain(i)` is the FF at position `i` in the chain)
 
-Technology view of the chain from Quartus Prime:
+Technology view of the chain from Quartus Prime: computation of next value for register `chain[7]`
+via one LUT by using the states of the previous three registers `chain[4]`, `chain[5]` and `chain[6]`.
 
 ![Chain detail](https://raw.githubusercontent.com/stnolting/fpga_torture/main/img/example_chain.png)
 
@@ -79,7 +80,7 @@ fpga_torture/sim$ gtkwave fpga_torture.vcd`
 ## Hardware Utilization
 
 The total size of the chain is defined by the `NUM_CELLS` generic. The design will require
-`NUM_CELLS+1` FFs (registers) and `NUM_CELLS+2` LUTs (look-up tables, 3-inputs each). Some
+`NUM_CELLS+1` FFs (registers) and `NUM_CELLS+2` LUT3s (look-up tables, 3-inputs each). Some
 FPGAs/toolchains might also introduce some additional route-through LUTs.
 
 Mapping example: Lattice `iCE40UP5K-UWG30ITR` FPGA, SinplifyPro, `NUM_CELLS` = **5278**
