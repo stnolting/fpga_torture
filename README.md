@@ -15,6 +15,9 @@ The VHDL code provides an technology-agnostic description, which do not use any
 primitives, attributes or other device/platform-specific things. Tested on Lattice
 (Radiant, SinplifyPro) and Intel (Quartus Prime) FPGAs.
 
+**:warning: BEWARE! This setup might cause permanent damage of your FPGA/board if over-current
+and over-temperature protection are insufficient!**
+
 
 ## How does it work?
 
