@@ -38,7 +38,7 @@ and dynamic power consumption.
 
 ### Top Entity
 
-The top entity is [`fpga_torture.vhd`](https://github.com/stnolting/fpga_torture/blob/main/rtl/fpga_torture.vhd).
+The top entity is [`rtl/fpga_torture.vhd`](https://github.com/stnolting/fpga_torture/blob/main/rtl/fpga_torture.vhd):
 
 ```vhdl
 entity fpga_torture is
