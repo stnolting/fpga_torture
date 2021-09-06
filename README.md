@@ -66,7 +66,7 @@ FPGA output pin like a LED or an unconnected FPGA pin.
 
 The projects provides a simple testbench
 ([`sim/fpga_torture_tb.vhd`](https://github.com/stnolting/fpga_torture/blob/main/sim/fpga_torture_tb.vhd)), which
-can be simulated by GHDL via the provides script ([`sim/ghdl.sh`](https://github.com/stnolting/fpga_torture/blob/main/sim/ghdl.sh):
+can be simulated by GHDL via the provides script ([`sim/ghdl.sh`](https://github.com/stnolting/fpga_torture/blob/main/sim/ghdl.sh)):
 
 ```
 fpga_torture/sim$ sh ghdl.sh
@@ -76,7 +76,7 @@ The simulation will run for 1ms using a 100MHz clock. The waveform data is store
 so it can be viewed using _gtkwave_:
 
 ```
-fpga_torture/sim$ gtkwave fpga_torture.vcd`
+fpga_torture/sim$ gtkwave fpga_torture.vcd
 ```
 
 
