@@ -8,11 +8,11 @@ FPGA power supplies.
 Most concepts for testing max utilization / power requirements use a simple shift register
 where each FF (flip flop/register) toggles in every cycle. These kind of concepts are based entirely
 on FFs but also provide a maximum switching activity (in the FFs). _FPGA_torture_ is also based on consuming
-all available FFs but it also includes all available LUTs (look-up tables) to utilize **all** of the FPGA'shift
-general purpose logic resources.
+all available FFs. Additionally, it also includes all available LUTs (look-up tables) to utilize **all** of the FPGA's
+general purpose logic resources to produce a more realistic use case.
 
-The VHDL code provides an technology-agnostic description, which do not use any
-primitives, attributes or other device/platform-specific things. Tested on Lattice
+The VHDL code provides an technology-agnostic description, which does not use any
+primitives, attributes or other device/platform-specific elements. It has been tested on Lattice
 (Radiant, SinplifyPro) and Intel (Quartus Prime) FPGAs.
 
 **:warning: BEWARE! This setup might cause permanent damage of your FPGA/board if over-current
