@@ -1,6 +1,6 @@
 # FPGA Torture
 
-[![license](https://img.shields.io/github/license/stnolting/fpga_torture?longCache=true&style=flat-square)](https://github.com/stnolting/fpga_torture/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/stnolting/fpga_torture?longCache=true&style=flat-square)](https://github.com/stnolting/fpga_torture/blob/main/LICENSE)
 
 * [How does it work?](#How-does-it-work)
 * [Top Entity](#Top-Entity)
