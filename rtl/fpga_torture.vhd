@@ -45,7 +45,7 @@ use ieee.std_logic_1164.all;
 
 entity fpga_torture is
   generic (
-    NUM_CELLS : natural := 5278 -- number of LUT3+FF elements
+    NUM_CELLS : positive := 5278 -- number of LUT3+FF elements
   );
   port (
     clk_i  : in  std_ulogic; -- clock input
@@ -85,7 +85,7 @@ begin
   out_o <= chain(chain'left);
 
   -- intro --
-  assert false report "FPGA_TORTURE using " & natural'image(NUM_CELLS) & " LUT3+FF cells." severity note;
+  assert false report "FPGA_TORTURE using " & positive'image(NUM_CELLS) & " LUT3+FF cells." severity note;
 
 
 end fpga_torture_rtl;
