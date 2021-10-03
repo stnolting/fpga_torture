@@ -1,13 +1,21 @@
 # FPGA Torture
 
-This design allows to stress-test FPGA utilization by consuming **all** available
+[![license](https://img.shields.io/github/license/stnolting/fpga_torture?longCache=true&style=flat-square)](https://github.com/stnolting/fpga_torture/blob/master/LICENSE)
+
+* [How does it work?](#How-does-it-work)
+* [Top Entity](#Top-Entity)
+* [Simulation](#Simulation)
+* [Hardware Utilization](#Hardware-Utilization)
+
+
+This is a simple design that allows to stress-test FPGA utilization by consuming **all** available
 logic resources (LUTs + FFs). The design implements a modified Galois LFSR to generate
-a lot of (chaotic) switching activity / dynamic power consumption to also stress-test
+a lot of "chaotic" switching activity / dynamic power consumption to also stress-test
 FPGA power supplies.
 
 Most concepts for testing max utilization / power requirements use a simple shift register
 where each FF (flip flop/register) toggles in every cycle. These kind of concepts are based entirely
-on FFs but also provide a maximum switching activity (in the FFs). _FPGA_torture_ is also based on consuming
+on FFs but also provide a maximum switching activity (in the FFs only). _FPGA_torture_ is also based on consuming
 all available FFs. Additionally, it also includes all available LUTs (look-up tables) to utilize **all** of the FPGA's
 general purpose logic resources to produce a more realistic use case.
 
@@ -40,14 +48,14 @@ and dynamic power consumption.
 
 :warning: For some `NUM_CELLS` values (e.g. 30) the chain will provide maximum switching activity (each FF toggling in every cycle).
 
-### Top Entity
+## Top Entity
 
 The top entity is [`rtl/fpga_torture.vhd`](https://github.com/stnolting/fpga_torture/blob/main/rtl/fpga_torture.vhd):
 
 ```vhdl
 entity fpga_torture is
   generic (
-    NUM_CELLS : natural := 5278 -- number of LUT3+FF elements
+    NUM_CELLS : positive := 5278 -- number of LUT3+FF elements
   );
   port (
     clk_i  : in  std_ulogic; -- clock input
@@ -57,12 +65,13 @@ entity fpga_torture is
 end fpga_torture;
 ```
 
-The reset signal `rstn_i` is optional if the target FPGA supports FF initialization via bitstream. In this case tie `rstn_i` to `1`.
-The `out_o` output signal is required to prevent the synthesis tool from removing the whole design logic. Connect this to some uncritical
-FPGA output pin like a LED or an unconnected FPGA pin.
+The reset signal `rstn_i` is optional if the target FPGA supports FF initialization via bitstream. In this case the `rstn_i` signal
+can be tied to `1`.
+The `out_o` output signal is required to prevent the synthesis tool from removing the whole design logic. Connect this signal
+to some uncritical FPGA output pin like a LED or an unconnected FPGA pin.
 
 
-### Simulation
+## Simulation
 
 The projects provides a simple testbench
 ([`sim/fpga_torture_tb.vhd`](https://github.com/stnolting/fpga_torture/blob/main/sim/fpga_torture_tb.vhd)), which
