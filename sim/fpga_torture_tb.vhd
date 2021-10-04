@@ -7,12 +7,12 @@ end fpga_torture_tb;
 architecture fpga_torture_tb_rtl of fpga_torture_tb is
 
   -- configuration --
-  constant num_cells_c : natural := 200;
+  constant num_cells_c : positive := 200;
 
   -- dut --
   component fpga_torture
     generic (
-      NUM_CELLS : natural
+      NUM_CELLS : positive
     );
     port (
       clk_i  : in  std_ulogic;
