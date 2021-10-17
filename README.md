@@ -1,4 +1,4 @@
-# FPGA Torture
+# :fire: `fpga_torture` - FPGA Stress-Testing
 
 [![license](https://img.shields.io/github/license/stnolting/fpga_torture?longCache=true&style=flat-square)](https://github.com/stnolting/fpga_torture/blob/main/LICENSE)
 
