@@ -1,6 +1,7 @@
 # :fire: `fpga_torture` - FPGA Stress-Testing
 
-[![license](https://img.shields.io/github/license/stnolting/fpga_torture?longCache=true&style=flat-square)](https://github.com/stnolting/fpga_torture/blob/main/LICENSE)
+[![license](https://img.shields.io/github/license/stnolting/fpga_torture)](https://github.com/stnolting/fpga_torture/blob/main/LICENSE)
+[![DOI](https://zenodo.org/badge/403096282.svg)](https://zenodo.org/badge/latestdoi/403096282)
 
 * [How does it work?](#How-does-it-work)
 * [Top Entity](#Top-Entity)
