@@ -5,13 +5,13 @@
 -- # (LUTs and FFs). Generates very high (chaotic) switching activity / dynamic power consumption  #
 -- # to stress-test the FPGA power supply. Based on a modified "circular" Galois LFSR.             #
 -- #                                                                                               #
--- # NUM_CELLS generic defines the number of LUT3+FF elements.                                     #
--- # Required LUTs: NUM_CELLS+2                                                                    #
--- # Required FFs:  NUM_CELLS+1                                                                    #
+-- # NUM_CELLS generic defines the number of LUT3 + FF elements.                                   #
+-- # Required LUT3s: NUM_CELLS+2                                                                   #
+-- # Required FFs:   NUM_CELLS+1                                                                   #
 -- # ********************************************************************************************* #
 -- # BSD 3-Clause License                                                                          #
 -- #                                                                                               #
--- # Copyright (c) 2021, Stephan Nolting. All rights reserved.                                     #
+-- # Copyright (c) 2022, Stephan Nolting. All rights reserved.                                     #
 -- #                                                                                               #
 -- # Redistribution and use in source and binary forms, with or without modification, are          #
 -- # permitted provided that the following conditions are met:                                     #
@@ -45,7 +45,7 @@ use ieee.std_logic_1164.all;
 
 entity fpga_torture is
   generic (
-    NUM_CELLS : positive := 5278 -- number of LUT3+FF elements
+    NUM_CELLS : positive -- number of LUT3+FF elements
   );
   port (
     clk_i  : in  std_ulogic; -- clock input
@@ -56,10 +56,25 @@ end fpga_torture;
 
 architecture fpga_torture_rtl of fpga_torture is
 
+  -- combining function - mapped to a single LUT3 --
+  function combine_f(a, b, c : std_ulogic) return std_ulogic is
+    variable res_v : std_ulogic;
+  begin
+    res_v := a xor b xor c;
+    return res_v;
+  end function combine_f;
+
+  -- local signals --
   signal toggle_gen : std_ulogic := '0'; -- toggle generator to start chain
-  signal chain      : std_ulogic_vector(NUM_CELLS-1 downto 0) := (others => '0'); -- the chain of torture
+  signal chain      : std_ulogic_vector(NUM_CELLS-1 downto 0) := (others => '0'); -- initialize by bitstream
 
 begin
+
+  -- Intro and Sanity Check -----------------------------------------------------------------
+  -- -------------------------------------------------------------------------------------------
+  assert false report "FPGA_TORTURE using " & positive'image(NUM_CELLS) & " LUT3+FF cells." severity note;
+  assert not (NUM_CELLS < 3) report "<NUM_CELLS> has to be greater than or equal to 3." severity error;
+
 
   -- Toggle Chain (single element = LUT3 + FF) ----------------------------------------------
   -- -------------------------------------------------------------------------------------------
@@ -72,20 +87,18 @@ begin
       toggle_gen <= not toggle_gen;
       for i in 0 to NUM_CELLS-1 loop
         case i is
-          when 0      => chain(i) <= toggle_gen xor chain(NUM_CELLS-1) xor chain(NUM_CELLS-2); -- chain start 0
-          when 1      => chain(i) <= chain(0)   xor toggle_gen         xor chain(NUM_CELLS-1); -- chain start 1
-          when 2      => chain(i) <= chain(1)   xor chain(0)           xor toggle_gen; -- chain start 2
-          when others => chain(i) <= chain(i-1) xor chain(i-2)         xor chain(i-3); -- inside chain
+          when 0      => chain(i) <= combine_f(chain(NUM_CELLS-2), chain(NUM_CELLS-1), toggle_gen); -- chain start 0
+          when 1      => chain(i) <= combine_f(chain(NUM_CELLS-1), toggle_gen,         chain(0));   -- chain start 1
+          when 2      => chain(i) <= combine_f(toggle_gen,         chain(0),           chain(1));   -- chain start 2
+--        when 3      => chain(i) <= combine_f(chain(0),           chain(1),           chain(1));   -- example
+          when others => chain(i) <= combine_f(chain(i-3),         chain(i-2),         chain(i-1)); -- inside chain
         end case;
       end loop;
     end if;
   end process torture_chain;
 
   -- dummy output --
-  out_o <= chain(chain'left);
-
-  -- intro --
-  assert false report "FPGA_TORTURE using " & positive'image(NUM_CELLS) & " LUT3+FF cells." severity note;
+  out_o <= chain(chain'left); -- to prevent synthesis from removing the whole design
 
 
 end fpga_torture_rtl;
