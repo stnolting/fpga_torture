@@ -7,7 +7,7 @@ end fpga_torture_tb;
 architecture fpga_torture_tb_rtl of fpga_torture_tb is
 
   -- configuration --
-  constant num_cells_c : positive := 200;
+  constant num_cells_c : positive := 64;
 
   -- dut --
   component fpga_torture
